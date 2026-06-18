@@ -1,0 +1,69 @@
+project:
+  name: value_aware_slice_scheduling
+  seed: 42
+
+paths:
+  dataset_root: C:/expr/PANDA
+  images_dir: C:/expr/PANDA/image_train
+  gt_json: C:/expr/PANDA/image_annos/person_bbox_train.json
+  vehicle_gt_json: C:/expr/PANDA/image_annos/vehicle_bbox_train.json
+  cache_dir: cache
+  results_dir: results
+  slices_json: cache/slices.json
+  slice_gain_csv: cache/slice_gain.csv
+  slice_features_csv: cache/slice_features.csv
+  slice_costs_csv: cache/slice_costs.csv
+  predicted_gain_csv: cache/predicted_gain.csv
+  schedule_decisions_csv: cache/schedule_decisions.csv
+  metrics_csv: results/metrics.csv
+  frame_results_json: results/frame_results.json
+
+slicing:
+  slice_size: 1024
+  overlap_ratio: 0.25
+  save_visualizations: true
+  visualization_dir: results/slice_vis
+
+preprocess:
+  target_long_side: 3840
+  keep_aspect_ratio: true
+
+detection:
+  edge:
+    mode: mock
+    existing_results_json: null
+  cloud:
+    mode: mock
+    existing_results_json: null
+    qualities: [low, mid, high, full]
+  vitdet:
+    wsl_command: null
+    config_path: null
+    checkpoint_path: null
+    input_path: null
+    output_path: null
+
+gain:
+  iou_threshold: 0.5
+
+cost_profiler:
+  jpeg_quality:
+    low: 30
+    mid: 55
+    high: 80
+    full: 95
+
+scheduler:
+  mode: learned
+  fixed_bandwidth_bytes_per_frame: null
+  dynamic_bandwidth_trace_csv: null
+  qualities: [none, low, mid, high, full]
+
+simulation:
+  tracking_enabled: false
+
+visualization:
+  output_dir: results/figures
+
+experiment:
+  max_frames: null
