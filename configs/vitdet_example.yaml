@@ -1,0 +1,13 @@
+vitdet:
+  wsl_distro: Ubuntu
+  python_executable: /home/asus/miniforge3/envs/vitdet/bin/python
+  vitdet_repo_root: /home/asus/repos/detectron2
+  cloud_model_name: vitdet_b
+  edge_model_name: unresolved
+  edge_model_status: pending_hyperion_or_replacement
+  cloud_model_status: pending_checkpoint
+  edge_config: null
+  edge_checkpoint: null
+  cloud_config: null
+  cloud_checkpoint: null
+  device: cuda

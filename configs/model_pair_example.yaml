@@ -1,0 +1,6 @@
+model_pair:
+  edge: unresolved
+  cloud: vitdet_b
+  pair_status: provisional
+  strict_hyperion_reproduction: false
+  note: Final edge detector will be selected after author response or reproducible replacement decision.

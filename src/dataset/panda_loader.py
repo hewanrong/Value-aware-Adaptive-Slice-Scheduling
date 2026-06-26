@@ -40,6 +40,7 @@ def _panda_object_to_detection(
     category_id: int,
     scale_x: float = 1.0,
     scale_y: float = 1.0,
+    gt_id: str | None = None,
 ) -> dict:
     rect = obj.get("rect", {})
     tl = rect.get("tl", {})
@@ -55,6 +56,7 @@ def _panda_object_to_detection(
         max(0.0, y2 - y1) * scale_y,
     ]
     return {
+        "gt_id": gt_id,
         "bbox": bbox,
         "original_bbox": [x1, y1, max(0.0, x2 - x1), max(0.0, y2 - y1)],
         "category": obj.get("category", "object"),
@@ -123,9 +125,17 @@ class PandaFrameDataset:
                 person_count += len(objects)
             else:
                 vehicle_count += len(objects)
-            for obj in objects:
+            for obj_index, obj in enumerate(objects):
                 annotations.append(
-                    _panda_object_to_detection(obj, anno_width, anno_height, category_id, scale_x, scale_y)
+                    _panda_object_to_detection(
+                        obj,
+                        anno_width,
+                        anno_height,
+                        category_id,
+                        scale_x,
+                        scale_y,
+                        f"{frame_id}::c{category_id}::{obj_index}",
+                    )
                 )
         return tuple(annotations), person_count, vehicle_count
 
